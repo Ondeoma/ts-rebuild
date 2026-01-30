@@ -1,0 +1,22 @@
+{
+  "name": "example",
+  "version": "0.1.0",
+  "private": "true",
+  "type": "module",
+  "scripts": {
+    "prepare": "ts-patch install -s",
+    "build": "tspc",
+    "exec": "npm run build && node ./dist/index.js",
+    "prettier": "prettier src --check",
+    "prettier:fix": "prettier src --write"
+  },
+  "devDependencies": {
+    "ts-generics-macro": "file:../../../ts-generics-macro/packages/ts-generics-macro",
+    "ts-patch": "^3.3.0",
+    "ts-rebuild": "^0.1.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "typia": "^11.0.3"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "ts-rebuild-monorepo",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "npm run build -w ts-rebuild",
+    "test": "npm run test -w ts-rebuild",
+    "prepare:example": "npm run prepare -w example",
+    "build:example": "npm run build -w example",
+    "exec:example": "npm run exec -w example",
+    "eslint": "eslint",
+    "eslint:fix": "eslint --fix",
+    "prettier": "npm run prettier --workspaces",
+    "prettier:fix": "npm run prettier:fix --workspaces"
+  },
+  "dependencies": {
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "jiti": "^2.6.1",
+    "prettier": "^3.6.2",
+    "typescript-eslint": "^8.46.3"
+  }
+}

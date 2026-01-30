@@ -1,0 +1,35 @@
+{
+  "name": "ts-rebuild",
+  "version": "0.1.0",
+  "description": "Transformer to update type-checker after other transformers.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "eslint": "eslint",
+    "eslint:fix": "eslint --fix",
+    "prettier": "prettier src --check",
+    "prettier:fix": "prettier src --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://hirano_ds@bitbucket.org/octava/ts-rebuild.git"
+  },
+  "author": "hyranno",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://bitbucket.org/octava/ts-rebuild/issues"
+  },
+  "homepage": "https://bitbucket.org/octava/ts-rebuild#readme",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "ts-patch": "^3.3.0",
+    "vitest": "^4.0.16"
+  },
+  "dependencies": {
+    "tsconfig-paths": "^4.2.0"
+  }
+}

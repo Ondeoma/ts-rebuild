@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    "module": "nodenext",
+    "target": "esnext",
+    "lib": ["esnext"],
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    "strict": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+
+    "esModuleInterop": true,
+
+    // Transformers
+    "plugins": [
+      {
+        "transform": "ts-rebuild",
+        "transformProgram": true,
+        "children": [
+          {"transform": "../../../ts-generics-macro/packages/ts-generics-macro"}
+        ]
+      },
+      {"transform": "typia/lib/transform"}
+    ]
+  },
+  "include": ["src"]
+}
