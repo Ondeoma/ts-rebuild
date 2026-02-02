@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Integration Test: packages/example > should match the generated code snapshot 1`] = `
+"import typia from "typia";
+const value = {
+    a: 1,
+    b: "str",
+};
+console.log((function (value) {
+    return (() => { const _io0 = input => "number" === typeof input.a && "string" === typeof input.b; return input => "object" === typeof input && null !== input && _io0(input); })()(value);
+})(value));
+console.log((function (value) {
+    return (() => { const _io0 = input => "number" === typeof input.a && "string" === typeof input.b; return input => "object" === typeof input && null !== input && _io0(input); })()(value);
+})(false));
+console.log((function (value) {
+    return (() => { return input => "boolean" === typeof input; })()(value);
+})(value));
+//# sourceMappingURL=index.js.map"
+`;

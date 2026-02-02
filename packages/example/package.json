@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "ts-patch install -s",
     "build": "tspc",
-    "exec": "npm run build && node ./dist/index.js",
+    "exec": "node ./dist/index.js",
     "prettier": "prettier src --check",
     "prettier:fix": "prettier src --write"
   },
