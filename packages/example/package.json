@@ -11,7 +11,7 @@
     "prettier:fix": "prettier src --write"
   },
   "devDependencies": {
-    "ts-generics-macro": "file:../../../ts-generics-macro/packages/ts-generics-macro",
+    "@ondeoma/ts-generics-macro": "^0.0.0",
     "ts-patch": "^3.3.0",
     "ts-rebuild": "^0.1.0",
     "typescript": "^5.9.3"

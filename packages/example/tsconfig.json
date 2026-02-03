@@ -31,7 +31,7 @@
         "transform": "ts-rebuild",
         "transformProgram": true,
         "children": [
-          {"transform": "../../../ts-generics-macro/packages/ts-generics-macro"}
+          {"transform": "@ondeoma/ts-generics-macro"}
         ]
       },
       {"transform": "typia/lib/transform"}
