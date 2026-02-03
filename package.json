@@ -3,8 +3,8 @@
   "private": true,
   "workspaces": ["packages/*"],
   "scripts": {
-    "build": "npm run build -w ts-rebuild",
-    "test": "npm run test -w ts-rebuild",
+    "build": "npm run build -w @ondeoma/ts-rebuild",
+    "test": "npm run test -w @ondeoma/ts-rebuild",
     "prepare:example": "npm run prepare -w example",
     "build:example": "npm run build -w example",
     "exec:example": "npm run exec -w example",

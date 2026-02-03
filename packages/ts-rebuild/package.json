@@ -1,10 +1,19 @@
 {
-  "name": "ts-rebuild",
+  "name": "@ondeoma/ts-rebuild",
   "version": "0.1.0",
   "description": "Transformer to update type-checker after other transformers.",
   "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
+    "prepack": "shx cp ../../README.md . && shx cp ../../LICENSE .",
     "test": "vitest run",
     "eslint": "eslint",
     "eslint:fix": "eslint --fix",
@@ -13,14 +22,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://hirano_ds@bitbucket.org/octava/ts-rebuild.git"
+    "url": "git+https://github.com/Ondeoma/ts-rebuild.git"
   },
   "author": "hyranno",
   "license": "MIT",
   "bugs": {
-    "url": "https://bitbucket.org/octava/ts-rebuild/issues"
+    "url": "https://github.com/Ondeoma/ts-rebuild/issues"
   },
-  "homepage": "https://bitbucket.org/octava/ts-rebuild#readme",
+  "homepage": "https://github.com/Ondeoma/ts-rebuild#readme",
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
@@ -30,6 +39,7 @@
     "vitest": "^4.0.16"
   },
   "dependencies": {
+    "shx": "^0.4.0",
     "tsconfig-paths": "^4.2.0"
   }
 }
