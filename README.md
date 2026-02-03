@@ -13,7 +13,7 @@ Configure it in your `tsconfig.json` as follows:
   "compilerOptions": {
     "plugins": [
       {
-        "transform": "ts-rebuild",
+        "transform": "@ondeoma/ts-rebuild",
         "transformProgram": true,
         "children": [
           { "transform": "some-type-changing-transformer" }
