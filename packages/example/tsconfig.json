@@ -28,7 +28,7 @@
     // Transformers
     "plugins": [
       {
-        "transform": "ts-rebuild",
+        "transform": "@ondeoma/ts-rebuild",
         "transformProgram": true,
         "children": [
           {"transform": "@ondeoma/ts-generics-macro"}
