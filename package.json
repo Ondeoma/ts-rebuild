@@ -13,7 +13,8 @@
     "eslint": "eslint",
     "eslint:fix": "eslint --fix",
     "prettier": "npm run prettier --workspaces",
-    "prettier:fix": "npm run prettier:fix --workspaces"
+    "prettier:fix": "npm run prettier:fix --workspaces",
+    "release": "changeset publish"
   },
   "dependencies": {
     "typescript": "^5.9.3"
