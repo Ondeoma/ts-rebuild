@@ -1,5 +1,11 @@
 # @ondeoma/ts-rebuild
 
+## 0.1.2
+
+### Patch Changes
+
+- 0097c56: fix release action
+
 ## 0.1.1
 
 ### Patch Changes

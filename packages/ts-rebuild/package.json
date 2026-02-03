@@ -1,6 +1,6 @@
 {
   "name": "@ondeoma/ts-rebuild",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Transformer to update type-checker after other transformers.",
   "main": "dist/index.js",
   "publishConfig": {
