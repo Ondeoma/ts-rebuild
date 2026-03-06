@@ -1,5 +1,11 @@
 # @ondeoma/ts-rebuild
 
+## 0.1.3
+
+### Patch Changes
+
+- f782535: fix diagnostics
+
 ## 0.1.2
 
 ### Patch Changes
