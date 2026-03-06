@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import { PluginConfig, ProgramTransformerExtras } from "ts-patch";
+import { PluginConfig, ProgramTransformerExtras, TransformerExtras } from "ts-patch";
 
 import { loadTransformerFactory } from "./loader";
 
@@ -11,10 +11,19 @@ export default function (
   program: ts.Program,
   host: ts.CompilerHost | undefined,
   config: RebuilderConfig,
-  extras: ProgramTransformerExtras,
+  programExtras: ProgramTransformerExtras,
 ): ts.Program {
   const children = config.children || [];
   if (children.length === 0) return program;
+
+  const diagnostics: ts.Diagnostic[] = [];
+  const extras: TransformerExtras = {
+    ...programExtras,
+    diagnostics,
+    addDiagnostic: (diag: ts.Diagnostic): number => diagnostics!.push(diag),
+    removeDiagnostic: (index: number) => { diagnostics!.splice(index, 1) },
+    library: (globalThis as any).tsp?.currentLibrary || "typescript",
+  };
 
   const factories = children.map((targetConfig) =>
     loadTransformerFactory(program, targetConfig, extras),
@@ -67,6 +76,30 @@ export default function (
     options: compilerOptions,
     host: newHost,
   });
+
+  const originalEmit = newProgram.emit;
+  newProgram.emit = function (
+    targetSourceFile,
+    writeFile,
+    cancellationToken,
+    emitOnlyDtsFiles,
+    customTransformers
+  ) {
+    const result = originalEmit.call(
+      this,
+      targetSourceFile,
+      writeFile,
+      cancellationToken,
+      emitOnlyDtsFiles,
+      customTransformers
+    );
+    for (const diag of diagnostics) {
+      if (!result.diagnostics.includes(diag)) {
+        (result.diagnostics as ts.Diagnostic[]).push(diag);
+      }
+    }
+    return result;
+  };
 
   console.log("ts-rebuild successfully create new program.");
 

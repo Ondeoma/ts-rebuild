@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import { PluginConfig, ProgramTransformerExtras } from "ts-patch";
+import { PluginConfig, TransformerExtras } from "ts-patch";
 import * as tsconfigPaths from "tsconfig-paths";
 
 /*
@@ -39,7 +39,7 @@ function resolveModulePath(
 export function loadTransformerFactory(
   program: ts.Program,
   config: PluginConfig,
-  extras: ProgramTransformerExtras,
+  extras: TransformerExtras,
 ): ts.TransformerFactory<ts.SourceFile> {
   validateConfig(config);
 
