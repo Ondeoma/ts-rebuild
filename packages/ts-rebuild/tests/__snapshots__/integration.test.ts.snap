@@ -2,6 +2,9 @@
 
 exports[`Integration Test: packages/example > should match the generated code snapshot 1`] = `
 "import typia from "typia";
+function generics$macro$(value) {
+    throw "This is macro. Call of this function should have been expanded at compile time.";
+}
 const value = {
     a: 1,
     b: "str",
