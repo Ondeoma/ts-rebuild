@@ -1,5 +1,9 @@
 import * as ts from "typescript";
-import { PluginConfig, ProgramTransformerExtras, TransformerExtras } from "ts-patch";
+import {
+  PluginConfig,
+  ProgramTransformerExtras,
+  TransformerExtras,
+} from "ts-patch";
 
 import { loadTransformerFactory } from "./loader";
 
@@ -16,19 +20,50 @@ export default function (
   const children = config.children || [];
   if (children.length === 0) return program;
 
-  const diagnostics: ts.Diagnostic[] = [];
-  const extras: TransformerExtras = {
-    ...programExtras,
-    diagnostics,
-    addDiagnostic: (diag: ts.Diagnostic): number => diagnostics!.push(diag),
-    removeDiagnostic: (index: number) => { diagnostics!.splice(index, 1) },
-    library: (globalThis as any).tsp?.currentLibrary || "typescript",
-  };
+  const extras: TransformerExtras = createExtras(programExtras);
 
   const factories = children.map((targetConfig) =>
     loadTransformerFactory(program, targetConfig, extras),
   );
 
+  const newSourceFiles = transform(program, factories);
+
+  const compilerOptions = program.getCompilerOptions();
+
+  const newHost = createNewHost(host, compilerOptions, newSourceFiles);
+
+  const newProgram = createNewProgram(
+    program,
+    compilerOptions,
+    newHost,
+    extras.diagnostics,
+  );
+
+  console.log("ts-rebuild successfully create new program.");
+
+  return newProgram;
+}
+
+function createExtras(
+  programExtras: ProgramTransformerExtras,
+): TransformerExtras {
+  const diagnostics: ts.Diagnostic[] = [];
+  const extras: TransformerExtras = {
+    ...programExtras,
+    diagnostics,
+    addDiagnostic: (diag: ts.Diagnostic): number => diagnostics!.push(diag),
+    removeDiagnostic: (index: number) => {
+      diagnostics!.splice(index, 1);
+    },
+    library: "typescript",
+  };
+  return extras;
+}
+
+function transform(
+  program: ts.Program,
+  factories: ts.TransformerFactory<ts.SourceFile>[],
+): Map<string, ts.SourceFile> {
   const printer = ts.createPrinter();
   const newSourceFiles = new Map<string, ts.SourceFile>(
     program
@@ -48,9 +83,14 @@ export default function (
       })
       .map((transformed) => [transformed.fileName, transformed]),
   );
+  return newSourceFiles;
+}
 
-  const compilerOptions = program.getCompilerOptions();
-
+function createNewHost(
+  host: ts.CompilerHost | undefined,
+  compilerOptions: ts.CompilerOptions,
+  newSourceFiles: Map<string, ts.SourceFile>,
+): ts.CompilerHost {
   const baseHost = host || ts.createCompilerHost(compilerOptions);
   const getSourceFile: typeof baseHost.getSourceFile = (
     fileName,
@@ -70,11 +110,19 @@ export default function (
     ...baseHost,
     getSourceFile,
   };
+  return newHost;
+}
 
+function createNewProgram(
+  program: ts.Program,
+  compilerOptions: ts.CompilerOptions,
+  host: ts.CompilerHost,
+  deltaDiagnostics: readonly ts.Diagnostic[],
+): ts.Program {
   const newProgram = ts.createProgram({
     rootNames: program.getRootFileNames(),
     options: compilerOptions,
-    host: newHost,
+    host,
   });
 
   const originalEmit = newProgram.emit;
@@ -83,7 +131,7 @@ export default function (
     writeFile,
     cancellationToken,
     emitOnlyDtsFiles,
-    customTransformers
+    customTransformers,
   ) {
     const result = originalEmit.call(
       this,
@@ -91,17 +139,14 @@ export default function (
       writeFile,
       cancellationToken,
       emitOnlyDtsFiles,
-      customTransformers
+      customTransformers,
     );
-    for (const diag of diagnostics) {
-      if (!result.diagnostics.includes(diag)) {
-        (result.diagnostics as ts.Diagnostic[]).push(diag);
-      }
-    }
+    const cleanDeltaDiagnostics = deltaDiagnostics.filter(
+      (diag) => !result.diagnostics.includes(diag),
+    );
+    result.diagnostics = result.diagnostics.concat(cleanDeltaDiagnostics);
     return result;
   };
-
-  console.log("ts-rebuild successfully create new program.");
 
   return newProgram;
 }
