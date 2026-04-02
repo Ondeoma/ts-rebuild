@@ -14,7 +14,7 @@
     "@ondeoma/ts-generics-macro": "^0.0.4",
     "ts-patch": "^3.3.0",
     "@ondeoma/ts-rebuild": "^0.1.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "dependencies": {
     "typia": "^11.0.3"
