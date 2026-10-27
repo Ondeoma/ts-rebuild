@@ -4,7 +4,7 @@ import fs from "node:fs"
 import path from "node:path"
 import { execSync } from 'node:child_process';
 
-const PROJECT_ROOT = process.env.PROJECT_ROOT!;
+const PROJECT_ROOT = __PROJECT_ROOT__;
 const EXAMPLE_DIR = path.resolve(PROJECT_ROOT, 'packages/example');
 const DIST_FILE = path.resolve(EXAMPLE_DIR, 'dist/index.js');
 
