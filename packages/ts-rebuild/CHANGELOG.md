@@ -1,5 +1,11 @@
 # @ondeoma/ts-rebuild
 
+## 0.2.0
+
+### Minor Changes
+
+- bbafc5e: update dependencies
+
 ## 0.1.3
 
 ### Patch Changes
