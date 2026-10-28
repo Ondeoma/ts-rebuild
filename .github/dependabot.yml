@@ -12,3 +12,5 @@ updates:
     ignore:
       - dependency-name: "typescript"
         versions: [">= 7.0.0"]
+      - dependency-name: "typia"
+        versions: [">= 13.0.0"]
