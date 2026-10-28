@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@ondeoma/ts-generics-macro": "^0.1.0",
-    "@ondeoma/ts-rebuild": "^0.1.0",
+    "@ondeoma/ts-rebuild": "^0.2.0",
     "ts-patch": "^4.0.1",
     "typescript": "^6.0.3"
   },
